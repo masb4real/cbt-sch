@@ -1,4 +1,6 @@
 <?php 
+require_once 'JWT.php';
+
 class Controller {
 
   protected $app;
