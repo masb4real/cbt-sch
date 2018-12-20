@@ -8,7 +8,24 @@ class QuestionsController extends Controller
   
   public function index($app)
   {
-    $app->set('questions', $this->db->exec());
+    $sql = "SELECT * FROM questions";
+    $app->set('questions', $this->db->exec($sql));
+
+    if(count($app->get('questions')) > 0) {
+        $res = array(
+          "message" => "All questions fetched successfully",
+          "questions" => $app->get('questions'),
+        );
+        http_response_code(200);
+        echo json_encode($res);
+    } else {
+      $res = array(
+        "message" => "No questions found",
+        "question" => array()
+      );
+      http_response_code(404);
+      echo json_encode($res);
+    }
   }
 
   public function create($app) {
