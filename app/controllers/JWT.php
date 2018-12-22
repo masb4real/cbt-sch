@@ -1,5 +1,20 @@
 <?php
 
+class ExpiredException extends UnexpectedValueException
+{
+
+}
+
+class SignatureInvalidException extends UnexpectedValueException
+{
+
+}
+
+class BeforeValidException extends UnexpectedValueException
+{
+
+}
+
 class JWT
 {
 
