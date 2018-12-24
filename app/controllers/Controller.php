@@ -9,6 +9,7 @@ class Controller {
   protected $decoded_jwt;
 
   function beforeroute($app) {
+
     $token = $app->get("HEADERS.Authorization");
     $url = $app->get("PATH");
 
@@ -56,6 +57,16 @@ class Controller {
   }
 
   function afterroute() {
+    
+    // if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    //   header('Access-Control-Allow-Origin: *');
+    //   header('Access-Control-Allow-Methods: POST, GET, DELETE, PUT, PATCH, OPTIONS');
+    //   header('Access-Control-Allow-Headers: Accept, Content-Type');
+  
+    //   // header('Content-Length: 0');
+    //   // header('Content-Type: text/plain');
+    //   // die();
+    // }
   }
 
   function __construct() {

@@ -21,7 +21,7 @@ class AuthController extends Controller {
     }
 
     // get student with given exam number
-    $app->set('student', $this->db->exec("SELECT id AS user_id, name, role FROM users WHERE username='$exam_number'"));
+    $app->set('student', $this->db->exec("SELECT id AS user_id, name, role FROM users WHERE username='$exam_number'")[0]);
     // check if student exist with given exam numver
     if(count($app->get('student')) > 0) { // student exist
 
@@ -29,7 +29,9 @@ class AuthController extends Controller {
       $res = array(
         "message" => "student logged sucessfully",
         "token" => $this->generate_jwt(), // genarates JWT
-        "data" => $app->get('student')[0]
+        "user_id" => $app->get('student')['user_id'],
+        "name" => $app->get('student')['name'],
+        "role" => $app->get('student')['role'],
       );
       http_response_code(201);
       echo json_encode($res);
@@ -75,13 +77,13 @@ class AuthController extends Controller {
     // execute sql
     if($this->db->exec($sql)) { // student successfully created
       // get the inserted student
-      $app->set('student', $this->db->exec("SELECT id AS user_id, name, role FROM users WHERE id=LAST_INSERT_ID()"));
+      $app->set('student', $this->db->exec("SELECT id AS user_id, name, username AS exam_number FROM users WHERE id=LAST_INSERT_ID()")[0]);
 
       // response with success message, student data & JWT
       $res = array(
-        "message" => "student created sucessfully",
-        "data" => $app->get('student')[0],
-        "token" => $this->generate_jwt()
+        "user_id" => $app->get('student')['user_id'],
+        "name" => $app->get('student')['name'],
+        "exam_number" => $app->get('student')['exam_number']
       );
       http_response_code(201);
       echo json_encode($res);
@@ -106,6 +108,7 @@ class AuthController extends Controller {
       $res = array(
         "message" => "Username is required"
       );
+
       http_response_code(400);
       return print(json_encode($res));
     }
@@ -128,13 +131,11 @@ class AuthController extends Controller {
         $res = array(
           "message" => "admin logged sucessfully",
           "token" => $this->generate_jwt(), // genarates JWT
-          "data" => array(
-            "user_id" => $app->get('admin')["user_id"],
-            "name" => $app->get('admin')["name"],
-            "role" => $app->get('admin')["role"],
-          )
+          "user_id" => $app->get('admin')["user_id"],
+          "name" => $app->get('admin')["name"],
+          "role" => $app->get('admin')["role"],
         );
-        http_response_code(201);
+        http_response_code(200);
         echo json_encode($res);
       } else { // invalid password
         // response with error message
@@ -201,13 +202,15 @@ class AuthController extends Controller {
     // execute sql
     if($this->db->exec($sql)) { // admin successfully created
       // get the inserted admin
-      $app->set('admin', $this->db->exec("SELECT id AS user_id, name, role FROM users WHERE id=LAST_INSERT_ID()"));
+      $app->set('admin', $this->db->exec("SELECT id AS user_id, name, role FROM users WHERE id=LAST_INSERT_ID()")[0]);
 
       // response with success message, admin data & JWT
       $res = array(
         "message" => "admin created sucessfully",
-        "data" => $app->get('admin')[0],
-        "token" => $this->generate_jwt()
+        "token" => $this->generate_jwt(),
+        "user_id" => $app->get('admin')['user_id'],
+        "name" => $app->get('admin')['name'],
+        "role" => $app->get('admin')['role'],
       );
       http_response_code(201);
       echo json_encode($res);

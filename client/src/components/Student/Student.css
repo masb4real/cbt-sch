@@ -1,0 +1,100 @@
+html, body {
+  height: 100%;
+  width: 100%;
+}
+span#menu svg {
+  width: 40px;
+  fill: #000;
+}
+aside, main {
+  box-sizing: border-box;
+}
+main {
+  padding: 1em;
+  width: 100%;
+  height: 100%;
+}
+
+/*
+  * Off-canvas layout styles.
+  */
+
+/* Since we're mobile-first, by default, the drawer is hidden. */
+aside {
+  width: 210px;
+  min-width: 210px;
+  min-height: 100vmin;
+  height: 100%;
+  position: absolute;
+  background: #0A745B;
+  color: #eee;
+  /* This trasform moves the drawer off canvas. */
+  -webkit-transform: translate(-210px, 0);
+  transform: translate(-210px, 0);
+  /* Optionally, we animate the drawer. */
+  transition: transform 0.3s ease;
+}
+aside.open {
+  -webkit-transform: translate(0, 0);
+  transform: translate(0, 0);
+}
+.sidebar-header {
+  padding: 20px 10px;
+}
+
+.sidebar-list {
+  padding: 0;
+  list-style: none;
+  margin: 20px 0 40px;
+}
+
+.sidebar-list li {
+  text-indent: 20px;
+  line-height: 45px;
+}
+.sidebar-list li a {
+  display: block;
+  text-decoration: none;
+  color: #ddd;
+  border-top: 1px  solid #fcfcfc;
+  /*border-bottom: 1px solid #222;*/
+}
+.sidebar-list li a:hover {
+  background: rgb(17, 151, 120);
+  border-left: 4px solid #eee;
+}
+
+/* If there is enough space (> 600px), we keep the drawer open all the time. */
+@media (min-width: 600px) {
+
+  /* We open the drawer. */
+  aside {
+    position:relative;
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+
+  /* We use Flexbox on the parent. */
+  .wrap {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+  }
+
+  main {
+    width: auto;
+    /* Flex-grow streches the main content to fill all available space. */
+    flex-grow: 1;
+  }
+}
+
+/* If there is space (> 800px), we keep the drawer open by default. */
+@media (min-width: 600px) {
+  /* main > #menu:after {
+    content: 'The drawer stays open if width > 600px';
+  } */
+  /* main p, nav p {
+    text-decoration: line-through;
+  } */
+}

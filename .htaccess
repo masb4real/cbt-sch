@@ -16,3 +16,7 @@ RewriteRule .* index.php [L,QSA]
 RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization},L]
 
 Header set Access-Control-Allow-Origin "*"
+
+Options -MultiViews
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.html [QSA,L]

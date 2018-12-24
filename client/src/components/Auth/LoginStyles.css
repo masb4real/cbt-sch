@@ -1,0 +1,9 @@
+.bg {
+  min-height: 100%;
+}
+
+.centralise {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
