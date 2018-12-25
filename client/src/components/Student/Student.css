@@ -39,7 +39,11 @@ aside.open {
   transform: translate(0, 0);
 }
 .sidebar-header {
-  padding: 20px 10px;
+  padding: 30px 10px 0;
+  text-align: center;
+}
+.bg-white {
+  background: white;
 }
 
 .sidebar-list {

@@ -1,28 +1,18 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const StudentSidebar = props => {
-  const { path } = props;
-
-  return <aside id="drawer" ref={props.drawer} className="dark_blue">
-      <header className="sidebar-header">
-        <h3>{props.name}</h3>
-        <p>Student Dashboard</p>
-      </header>
-      {props.startExam ? (
+class StudentSidebar extends Component {
+  render() {
+    const { path, selected, drawer, startExam, name } = this.props;
+    return <aside id="drawer" ref={drawer} className="dark_blue">
+        <header className="sidebar-header">
+          <h3><small>{name}</small></h3>
+          <p>Student Dashboard</p>
+        </header>
+        {startExam === "true" ? (
           <ul className="sidebar-list">
-            <li>
-              <Link to={`${path}/write-exams`}>English</Link>
-            </li>
-            <li>
-              <Link to={`${path}/write-exams`}>Mathematic</Link>
-            </li>
-            <li>
-              <Link to={`${path}/write-exams`}>Chemistry</Link>
-            </li>
-            <li>
-              <Link to={`${path}/write-exams`}>Physics</Link>
-            </li>
+            {selected.map(subject => <li key={subject.id}><span>{subject.name}</span></li>)}
           </ul>
         ) : (
           <ul className="sidebar-list">
@@ -33,23 +23,15 @@ const StudentSidebar = props => {
               <Link to={`${path}/my-exams`}>My Exams</Link>
             </li>
             <li>
-              <Link to="/logout">Logout</Link>
+              <button className="btn btn-danger">Logout</button>
             </li>
           </ul>
         )
-        }
-      {/* <ul className="sidebar-list">
-        <li>
-          <Link to={`${path}`}>Dashboard</Link>
-        </li>
-        <li>
-          <Link to={`${path}/my-exams`}>My Exams</Link>
-        </li>
-        <li>
-          <Link to="/logout">Logout</Link>
-        </li>
-      </ul>*/}
-    </aside>;
+      }
+      </aside>;
+  }
 }
 
-export default StudentSidebar;
+const mapStateToProps = state => ({ selected: state.selectedSubjects });
+
+export default connect(mapStateToProps)(StudentSidebar);

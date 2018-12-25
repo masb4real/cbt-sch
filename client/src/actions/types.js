@@ -8,3 +8,4 @@ export const FETCH_SUBJECTS = 'fetch_subjects';
 export const FETCH_QUESTIONS = 'fetch_questions';
 export const FETCH_MESSAGE = 'fetch_message';
 export const FETCH_ALL_STUDENTS = "fetch_all_student";
+export const ADD_SELECTED_SUBJECTS = "add_selected_subjects";

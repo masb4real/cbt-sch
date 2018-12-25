@@ -26,7 +26,7 @@ class StudentNavbar extends Component {
   }
 
   renderButtons = () => {
-    if(this.props.startExam) {
+    if(this.props.startExam === "true") {
       return (
         <Nav className="ml-auto" navbar>
           <NavItem>

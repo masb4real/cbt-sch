@@ -40,12 +40,12 @@ class QuestionsController extends Controller {
 
     $res = array(
       "message" => "Questions fetch sucessfully",
-      "questions" => array(
+      "questions" => [
         $subject_ids[0] => $app->get('subject1'),
         $subject_ids[1] => $app->get('subject2'),
         $subject_ids[2] => $app->get('subject3'),
         $subject_ids[3] => $app->get('subject4'),
-      )
+      ]
     );
     http_response_code(200);
     print(json_encode($res));

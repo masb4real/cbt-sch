@@ -7,7 +7,6 @@ class WriteExam extends Component {
   }
 
   render() {
-    console.table(this.props.questions);
     return <div className="col-md-12">
         <div>
           <br />

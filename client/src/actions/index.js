@@ -9,7 +9,8 @@ import {
   FETCH_MESSAGE,
   FETCH_SUBJECTS,
   FETCH_QUESTIONS,
-  FETCH_ALL_STUDENTS
+  FETCH_ALL_STUDENTS,
+  ADD_SELECTED_SUBJECTS
 } from "./types";
 
 const ROOT_URL = 'http://localhost/cbt-sch';
@@ -165,14 +166,14 @@ export function fetchMessage() {
 
 export const fetch_questions = (subjects) => {
   return dispatch => {
-    axios.get(`${ROOT_URL}/questions`, {
+    axios.get(`${ROOT_URL}/questions/exam`, {
       headers: { 
         authorization: localStorage.getItem('token'),
         subjects
       }
     })
     .then(response => {
-      console.log(response);
+      console.log('questions response', response);
       dispatch({
         type: FETCH_QUESTIONS,
         payload: response.data.questions
@@ -221,3 +222,12 @@ export const fetchAllStudents = () => {
     })
   }
 }
+
+export const saveSelectedSubjects = subjects => {
+  return dispatch => {
+    dispatch({ 
+      type: ADD_SELECTED_SUBJECTS, 
+      payload: subjects 
+    });
+  };
+};

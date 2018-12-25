@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { fetch_subjects, fetch_questions } from "../../actions";
+import {
+  fetch_subjects,
+  fetch_questions,
+  saveSelectedSubjects
+} from "../../actions";
 import history from '../../history';
 class MainDashboard extends Component {
   constructor(props) {
@@ -82,10 +86,16 @@ class MainDashboard extends Component {
     }
     
     console.log('form submitted');
+    const all = selected.map((select, i) => {
+      return this.props.subjects.find(subject => subject.id === select);
+    });
+
+    this.props.saveSelectedSubjects(all);
     // convert selected array to string
     selected = selected.toString();
     // get question selected subjects
     this.props.fetch_questions(selected);
+
     // start exam
     this.props.start();
     // redirect to exam interface
@@ -160,5 +170,5 @@ const mapStateToProps = state => ({ subjects: state.subjects });
 
 export default connect(
   mapStateToProps,
-  { fetch_subjects, fetch_questions }
+  { fetch_subjects, fetch_questions, saveSelectedSubjects }
 )(MainDashboard);

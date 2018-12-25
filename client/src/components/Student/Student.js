@@ -31,15 +31,15 @@ class Dashboard extends Component {
   };
 
   start = () => {
-    localStorage.setItem('startExam', true);
-    this.setState({ startExam: true });
+    localStorage.setItem('startExam', "true");
+    this.setState({ startExam: "true" });
     console.log(this.props.startExam);
   }
 
   render() {
-    const { match, data } = this.props;
+    const { match, data, selected } = this.props;
     return <div className="wrap">
-        <StudentSidebar path={match.path} name={data.name} startExam={this.state.startExam} drawer={this.drawer} />
+        <StudentSidebar path={match.path} selected={selected} name={data.name} startExam={this.state.startExam} drawer={this.drawer} />
         <main>
           <StudentNavbar startExam={this.state.startExam} toggleDrawer={this.toggleDrawer} />
           <section className="container-fluid" onClick={this.toggleDrawer}>
@@ -55,6 +55,6 @@ class Dashboard extends Component {
   }
 }
 
-const mapStateToProps = state => ({ data: state.auth.data });
+const mapStateToProps = state => ({ data: state.auth.data, selected: state.selectedsubjects });
 
 export default connect(mapStateToProps)(Dashboard);

@@ -38,7 +38,7 @@ class App extends Component {
   render() {
     return (
       <Switch>
-        <Route exact path="/cbt-sch" component={HomePage} />
+        <Route exact path="/" component={HomePage} />
         <Route exact path="/login" component={Login} />
         <PrivateRoute path="/student" component={Student} />
         <Route exact path="/admin-login" component={AdminLogin} />
