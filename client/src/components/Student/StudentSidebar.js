@@ -12,7 +12,7 @@ class StudentSidebar extends Component {
         </header>
         {startExam === "true" ? (
           <ul className="sidebar-list">
-            {selected.map(subject => <li key={subject.id}><span>{subject.name}</span></li>)}
+            {selected.map(subject => <li key={subject.id}><Link to={`${path}/write-exam/${subject.id}`}>{subject.name}</Link></li>)}
           </ul>
         ) : (
           <ul className="sidebar-list">

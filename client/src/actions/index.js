@@ -165,6 +165,7 @@ export function fetchMessage() {
 }
 
 export const fetch_questions = (subjects) => {
+  console.log('subjects', subjects);
   return dispatch => {
     axios.get(`${ROOT_URL}/questions/exam`, {
       headers: { 

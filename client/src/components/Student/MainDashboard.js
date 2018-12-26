@@ -99,7 +99,7 @@ class MainDashboard extends Component {
     // start exam
     this.props.start();
     // redirect to exam interface
-    history.push("/student/write-exam");
+    history.push(`/student/write-exam/${selected[0]}`);
 
   }
 

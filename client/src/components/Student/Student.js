@@ -46,7 +46,7 @@ class Dashboard extends Component {
             <Switch>
               <Route exact path={`${match.path}`} component={() => <MainDasboard start={this.start}/>} />
               <Route exact path={`${match.path}/my-exams`} component={MyExams} />
-              <Route exact path={`${match.path}/write-exam`} component={WriteExam} />
+              <Route exact path={`${match.path}/write-exam/:subjectId`} component={WriteExam} />
               <Route exact path={`${match.path}/view-result`} component={ViewResult} />
             </Switch>
           </section>

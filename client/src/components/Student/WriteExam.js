@@ -3,10 +3,45 @@ import { connect } from 'react-redux';
 
 class WriteExam extends Component {
   state = {
-    option: ""
+    option: "",
+    questions: null
+  }
+
+  componentWillMount() {
+    const { match: { params: { subjectId }}} = this.props;
+    console.log('component will mount', subjectId);
+    const all = this.getCurrentSubjectQuestions(subjectId);
+    this.setState({ questions: all });
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    const { match: { params: { subjectId }}} = nextProps;
+    const all = this.getCurrentSubjectQuestions(subjectId);
+  }
+
+  getLastSubject = () => {
+    const { match: { params: { subjectId }}} = this.props;
+    return subjectId;
+  }
+
+  getCurrentSubjectQuestions = (subjectId) => {
+    const { questions } = this.props; // questions from props
+    // get questions for current subject
+    const all = questions[subjectId];
+    // update component state
+    return all;
   }
 
   render() {
+    const { questions } = this.state;
+
+    if(questions.length <= 0) {
+      return (
+        <h5>
+          Sorry :) no question found for current subject
+        </h5>
+      )
+    }
     return <div className="col-md-12">
         <div>
           <br />
@@ -44,6 +79,8 @@ class WriteExam extends Component {
   }
 }
 
-const mapStateToProps = state => ({ questions: state.questions });
+const mapStateToProps = state => ({ 
+  questions: state.questions.all
+});
 
 export default connect(mapStateToProps)(WriteExam);
