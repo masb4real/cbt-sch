@@ -27,7 +27,7 @@ class QuestionsController extends Controller {
   }
 
   public function get_exam_questions($app) {
-    $subject_ids = explode(', ', $app->get("HEADERS.Subjects"));
+    $subject_ids = explode(',', $app->get("HEADERS.Subjects"));
 
     $sql1 = "SELECT * FROM questions WHERE subject_id='$subject_ids[0]' ORDER BY RAND() LIMIT 40";
     $sql2 = "SELECT * FROM questions WHERE subject_id='$subject_ids[1]' ORDER BY RAND() LIMIT 40";

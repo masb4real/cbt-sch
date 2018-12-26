@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Question from './Question';
 
 class WriteExam extends Component {
   state = {
@@ -10,13 +11,13 @@ class WriteExam extends Component {
   componentWillMount() {
     const { match: { params: { subjectId }}} = this.props;
     console.log('component will mount', subjectId);
-    const all = this.getCurrentSubjectQuestions(subjectId);
-    this.setState({ questions: all });
+    this.getCurrentSubjectQuestions(subjectId);
   }
 
-  componentWillUpdate(nextProps, nextState) {
+  componentWillReceiveProps(nextProps) {
+    console.log('componentWillRecieveprops', nextProps);
     const { match: { params: { subjectId }}} = nextProps;
-    const all = this.getCurrentSubjectQuestions(subjectId);
+    this.getCurrentSubjectQuestions(subjectId);
   }
 
   getLastSubject = () => {
@@ -29,7 +30,7 @@ class WriteExam extends Component {
     // get questions for current subject
     const all = questions[subjectId];
     // update component state
-    return all;
+    this.setState({ questions: all });
   }
 
   render() {
@@ -42,41 +43,18 @@ class WriteExam extends Component {
         </h5>
       )
     }
-    return <div className="col-md-12">
-        <div>
-          <br />
-          <h5>
-            Question: Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Sapiente, at?
-          </h5>
-          <br />
-          <br />
-          <form>
-            <div className="form-group">
-              <label htmlFor="">
-                <input type="radio" name="option" id="" /> option 1
-              </label>
-            </div>
-            <div className="form-group">
-              <label htmlFor="">
-                <input type="radio" name="option" id="" /> option 2
-              </label>
-            </div>
-            <div className="form-group">
-              <label htmlFor="">
-                <input type="radio" name="option" id="" /> option 3
-              </label>
-            </div>
-            <div className="form-group">
-              <label htmlFor="">
-                <input type="radio" name="option" id="" /> option 4
-              </label>
-            </div>
-            <button className="btn btn-success">Next >></button>
-          </form>
-        </div>
-      </div>;
+    return (
+      <div className="col-md-12">
+        <form>
+          {this.state.questions.map((data, i) => {
+           return <Question key={i} question={data} index={i}/>
+          })}
+          <button className="btn btn-success">Next >></button>
+        </form>
+      </div>
+    );
   }
+  
 }
 
 const mapStateToProps = state => ({ 

@@ -1,6 +1,7 @@
 html, body {
   height: 100%;
   width: 100%;
+  font-size: 16px;
 }
 span#menu svg {
   width: 40px;
@@ -67,6 +68,7 @@ aside.open {
   background: rgb(17, 151, 120);
   border-left: 4px solid #eee;
 }
+
 
 /* If there is enough space (> 600px), we keep the drawer open all the time. */
 @media (min-width: 600px) {
