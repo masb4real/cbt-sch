@@ -42,7 +42,7 @@ class Dashboard extends Component {
         <StudentSidebar path={match.path} selected={selected} name={data.name} startExam={this.state.startExam} drawer={this.drawer} />
         <main>
           <StudentNavbar startExam={this.state.startExam} toggleDrawer={this.toggleDrawer} />
-          <section className="container-fluid" onClick={this.toggleDrawer}>
+          <section className="container-fluid">
             <Switch>
               <Route exact path={`${match.path}`} component={() => <MainDasboard start={this.start}/>} />
               <Route exact path={`${match.path}/my-exams`} component={MyExams} />

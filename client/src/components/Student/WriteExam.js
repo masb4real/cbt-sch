@@ -10,12 +10,11 @@ class WriteExam extends Component {
 
   componentWillMount() {
     const { match: { params: { subjectId }}} = this.props;
-    console.log('component will mount', subjectId);
+    // get questions for current subject
     this.getCurrentSubjectQuestions(subjectId);
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('componentWillRecieveprops', nextProps);
     const { match: { params: { subjectId }}} = nextProps;
     this.getCurrentSubjectQuestions(subjectId);
   }
@@ -49,12 +48,13 @@ class WriteExam extends Component {
           {this.state.questions.map((data, i) => {
            return <Question key={i} question={data} index={i}/>
           })}
+          <br />
           <button className="btn btn-success">Next >></button>
         </form>
       </div>
     );
   }
-  
+
 }
 
 const mapStateToProps = state => ({ 
