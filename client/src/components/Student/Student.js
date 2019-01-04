@@ -36,12 +36,63 @@ class Dashboard extends Component {
   }
 
   stop = () => {
-    const { exam, selected } = this.props;
-
-    localStorage.setItem('startExam', "false");
-    this.setState({ startExam: "false" });
+    const { answers, selected } = this.props;
+    // get all the subject id's
+    const ids = selected.map(item => item.id);
     // get scores  for each subject
-    
+    const first = answers.filter(question => question.subject_id === ids[0]);
+    const second = answers.filter(question => question.subject_id === ids[1]);
+    const third = answers.filter(question => question.subject_id === ids[2]);
+    const fourth = answers.filter(question => question.subject_id === ids[3]);
+
+    //console.log(third);
+    let score1, score2, score3, score4;
+
+    if(first.length <= 0) {
+      score1 = 75;
+    } else {
+      score1 = first.map(item => item.mark).reduce((x, y) => x + y);
+    }
+    if(second.length <= 0) {
+      score2 = 75;
+    } else {
+      score2 = second.map(item => item.mark).reduce((x, y) => x + y);
+    }
+    if(third.length <= 0) {
+      score3 = 75;
+    } else {
+      score3 = third.map(item => item.mark).reduce((x, y) => x + y);
+    }
+    if(fourth.length <= 0) {
+      score4 = 75;
+    } else {
+      score4 = fourth.map(item => item.mark).reduce((x, y) => x + y);
+    }
+
+    const allScores = [score1, score2, score3, score4]
+    const total = allScores.reduce((x, y) => x + y);
+    const examScores = selected.map((data, i) => {
+      return { id: data.id, name: data.name, score: allScores[i] };
+    })
+
+    // the object to send to the database
+    const obj = {
+      user_id: 2,
+      subject1: `${selected[0].name}-${score1}`,
+      subject2: `${selected[1].name}-${score2}`,
+      subject3: `${selected[2].name}-${score3}`,
+      subject4: `${selected[3].name}-${score4}`,
+      total
+    }
+
+    this.props.saveExamScore(obj);
+  
+    localStorage.setItem("startExam", "false");
+    this.setState({ 
+      startExam: "false",
+      total,
+      score: examScores
+    });
 
   }
 
@@ -67,7 +118,7 @@ class Dashboard extends Component {
 const mapStateToProps = state => ({ 
   data: state.auth.data, 
   selected: state.selectedsubjects,
-  exam: state.exam
+  answers: state.exam
 });
 
 export default connect(mapStateToProps)(Dashboard);
