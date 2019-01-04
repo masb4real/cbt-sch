@@ -33,7 +33,8 @@ class ViewResult extends Component {
 
   render() {
     return (
-      <div className="col-md-4 mx-auto">
+      <div className="col-md-4 mt-5 mx-auto">
+        <br /><br />
         <h4>EXAM RESULT</h4>
         <hr />
         <h5>Total: {this.renderTotal()}</h5>

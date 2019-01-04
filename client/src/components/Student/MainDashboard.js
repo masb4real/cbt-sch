@@ -104,8 +104,9 @@ class MainDashboard extends Component {
   }
 
   render() {
-    return <div>
-        <h3>Wecome to Student Dashboard</h3>
+    return <div className="col-md-12 mt-5">
+      <br /><br />
+      <h3>Wecome to Student Dashboard</h3>
       <br />
         <div className="row">
           <div className="col">

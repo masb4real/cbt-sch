@@ -39,7 +39,6 @@ class Dashboard extends Component {
   stop = () => {
     const { answers, selected, data: { user_id } } = this.props;
     // get all the subject id's
-    console.log(this.props);
     const ids = selected.map(item => item.id);
     // get scores  for each subject
     const first = answers.filter(question => question.subject_id === ids[0]);
@@ -97,15 +96,13 @@ class Dashboard extends Component {
       startExam: "false",
     });
 
-    
-
   }
 
   render() {
     const { match, data, selected } = this.props;
     return <div className="wrap">
         <StudentSidebar path={match.path} selected={selected} name={data.name} startExam={this.state.startExam} drawer={this.drawer} />
-        <main>
+        <main className="main-page">
           <StudentNavbar startExam={this.state.startExam} stopExam={this.stop} toggleDrawer={this.toggleDrawer} />
           <section className="container-fluid">
             <Switch>

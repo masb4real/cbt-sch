@@ -22,7 +22,7 @@ class Login extends Component {
     return (
       <div>
         <Navigation />
-        <div className="container-fluid bg bg-success">
+        <div className="container-fluid ">
           <div className="row">
             <div className="col-md-4 mx-auto mt-5">
               <div className="card">

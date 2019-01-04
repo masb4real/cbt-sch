@@ -147,9 +147,11 @@ export function authError(error) {
 
 export function signoutUser() {
   localStorage.clear();
+
   return {
     type: USER_LOGOUT
   };
+
 }
 
 export function fetchMessage() {

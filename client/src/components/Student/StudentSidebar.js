@@ -2,8 +2,14 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signoutUser } from '../../actions';
+import history from '../../history';
 
 class StudentSidebar extends Component {
+
+  onLogout = () => {
+    this.props.signoutUser();
+    history.push("/login");
+  }
 
   render() {
     const { path, selected, drawer, startExam, name } = this.props;
@@ -22,10 +28,7 @@ class StudentSidebar extends Component {
               <Link to={`${path}`}>Dashboard</Link>
             </li>
             <li>
-              <Link to={`${path}/my-exams`}>My Exams</Link>
-            </li>
-            <li>
-              <button onClick={() => this.props.signoutUser()} className="btn btn-danger">Logout</button>
+              <button onClick={this.onLogout} className="btn btn-danger">Logout</button>
             </li>
           </ul>
         )

@@ -16,8 +16,21 @@ class StudentNavbar extends Component {
     this.toggleNavbar = this.toggleNavbar.bind(this);
     this.state = {
       collapsed: true,
-      start_exam: false
+      start_exam: false,
+      minutes: 0,
+      seconds: 0,
     };
+  }
+
+  componentWillMount() {
+    const time = localStorage.getItem('remainder');
+
+    if(!time) {
+      this.timer(7200);
+    } else {
+      this.timer(parseInt(time));
+    }
+    
   }
 
   toggleNavbar() {
@@ -25,6 +38,40 @@ class StudentNavbar extends Component {
       collapsed: !this.state.collapsed
     });
   }
+
+  timer = (seconds) => {
+    let countdown;
+
+    const now = Date.now();
+    const then = now + seconds * 1000;
+
+    this.displayTimeLeft(seconds);
+
+    countdown = setInterval(() => {
+      const secondsLeft = Math.round((then - Date.now()) / 1000);
+
+      if(secondsLeft < 0) {
+        clearInterval(countdown);
+        this.props.stopExam();
+        history.push('/student/view-result');
+        return;
+      }
+      localStorage.setItem('remainder', secondsLeft);
+      this.displayTimeLeft(secondsLeft);
+    }, 1000);
+
+  }
+
+  displayTimeLeft = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainder = seconds % 60;
+
+    this.setState({ minutes, seconds: remainder});
+  }
+
+  appendZero(num) {
+		return num < 10 ? '0' + num : num;
+	}
 
   onSubmit = () => {
     if(window.confirm("Are you sure you want to sumit your exam")) {
@@ -41,7 +88,7 @@ class StudentNavbar extends Component {
       return (
         <Nav className="ml-auto" navbar>
           <NavItem>
-            <button className="btn-nav btn btn-outline-success">12: 55</button>
+            <span className="btn-nav btn btn-success">{this.appendZero(this.state.minutes)} : {this.appendZero(this.state.seconds)}</span>
           </NavItem>
           <NavItem>
             <button type="button" onClick={this.onSubmit} className="btn-nav btn btn-danger">Finish Exam</button>
@@ -53,8 +100,8 @@ class StudentNavbar extends Component {
 
   render() {
     return (
-      <div>
-        <Navbar color="faded" light expand="sm">
+      <div style={{position: "fixed", zIndex: 3, width: '80%'}}>
+        <Navbar color="secondary" light expand="sm">
           <NavbarBrand className="mr-auto">
             <span id="menu" onClick={this.props.toggleDrawer}>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

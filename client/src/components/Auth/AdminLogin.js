@@ -26,7 +26,7 @@ class AdminLogin extends Component {
     return (
       <div>
         <Navigation />
-        <div className="container-fluid bg bg-success">
+        <div className="container-fluid ">
           <div className="row">
             <div className="col-md-4 mx-auto">
               <div className="card mt-5">

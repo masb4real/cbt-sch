@@ -45,7 +45,8 @@ class WriteExam extends Component {
       )
     }
     return (
-      <div className="col-md-12">
+      <div className="col-md-12 mt-5">
+        <br /><br />
         <form>
           {this.state.questions.map((data, i) => {
            return <Question key={i} mark={length} question={data} index={i}/>

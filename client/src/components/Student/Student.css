@@ -11,43 +11,28 @@ aside, main {
   box-sizing: border-box;
 }
 main {
-  padding: 1em;
   width: 100%;
-  height: 100%;
+  padding: 15px;
+  padding-left: 260px;
 }
 
-WriteExam {
-  position: absolute;
-  overflow-y: scroll;
-
-}
 /*
-  * Off-canvas layout styles.
-  */
+* Off-canvas layout styles.
+*/
 
 /* Since we're mobile-first, by default, the drawer is hidden. */
 aside {
   position: fixed;
-  top:0;
-  left: 0;
-  width: 210px;
-  min-width: 210px;
-  min-height: 100%;
   height: 100%;
-  overflow-y: scroll;
-  background: #0A745B;
-  color: #eee;
-  z-index: 3;
-  /* This trasform moves the drawer off canvas. */
-  -webkit-transform: translate(-210px, 0);
-  transform: translate(-210px, 0);
-  /* Optionally, we animate the drawer. */
-  transition: transform 0.3s ease;
+  z-index: 1;
+  color: #fff;
+  /* overflow-y: scroll; */
+  background: #29c997;
 }
-aside.open {
+/* aside.open {
   -webkit-transform: translate(0, 0);
   transform: translate(0, 0);
-}
+} */
 .sidebar-header {
   padding: 30px 10px 0;
   text-align: center;
@@ -83,42 +68,20 @@ input[type=radio] {
   height: 1.0em;
 }
 
-
 /* If there is enough space (> 600px), we keep the drawer open all the time. */
 @media (min-width: 600px) {
 
   /* We open the drawer. */
-  aside {
-    position: fixed;
-    -webkit-transform: translate(0, 0);
-    transform: translate(0, 0);
-  }
-
-  /* We use Flexbox on the parent. */
-  .wrap {
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-flow: row nowrap;
-    flex-flow: row nowrap;
-  }
-
   main {
-    width: auto;
-    /* Flex-grow streches the main content to fill all available space. */
-    flex-grow: 1;
+    padding-left: 260px;
   }
 }
 
-/* If there is space (> 800px), we keep the drawer open by default. */
+/* If there is space (> 800px), we keep the drawer open by default.
 @media (min-width: 600px) {
-  /* main > #menu:after {
-    content: 'The drawer stays open if width > 600px';
-  } */
-  /* main p, nav p {
-    text-decoration: line-through;
-  } */
+
   aside {
     position: fixed;
     min-height: 100%;
   }
-}
+} */
