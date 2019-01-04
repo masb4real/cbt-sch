@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { saveToDB, saveScores } from '../../actions';
 
 import './Student.css'
 
@@ -36,8 +37,9 @@ class Dashboard extends Component {
   }
 
   stop = () => {
-    const { answers, selected } = this.props;
+    const { answers, selected, data: { user_id } } = this.props;
     // get all the subject id's
+    console.log(this.props);
     const ids = selected.map(item => item.id);
     // get scores  for each subject
     const first = answers.filter(question => question.subject_id === ids[0]);
@@ -77,7 +79,7 @@ class Dashboard extends Component {
 
     // the object to send to the database
     const obj = {
-      user_id: 2,
+      user_id,
       subject1: `${selected[0].name}-${score1}`,
       subject2: `${selected[1].name}-${score2}`,
       subject3: `${selected[2].name}-${score3}`,
@@ -85,14 +87,17 @@ class Dashboard extends Component {
       total
     }
 
-    this.props.saveExamScore(obj);
+    console.log('db data', obj);
+    console.log('scores', examScores);
+    this.props.saveToDB(obj);
+    this.props.saveScores(examScores);
   
     localStorage.setItem("startExam", "false");
     this.setState({ 
       startExam: "false",
-      total,
-      score: examScores
     });
+
+    
 
   }
 
@@ -101,7 +106,7 @@ class Dashboard extends Component {
     return <div className="wrap">
         <StudentSidebar path={match.path} selected={selected} name={data.name} startExam={this.state.startExam} drawer={this.drawer} />
         <main>
-          <StudentNavbar startExam={this.state.startExam} toggleDrawer={this.toggleDrawer} />
+          <StudentNavbar startExam={this.state.startExam} stopExam={this.stop} toggleDrawer={this.toggleDrawer} />
           <section className="container-fluid">
             <Switch>
               <Route exact path={`${match.path}`} component={() => <MainDasboard start={this.start}/>} />
@@ -115,10 +120,10 @@ class Dashboard extends Component {
   }
 }
 
-const mapStateToProps = state => ({ 
-  data: state.auth.data, 
-  selected: state.selectedsubjects,
+const mapStateToProps = state => ({
+  data: state.auth.data,
+  selected: state.selectedSubjects,
   answers: state.exam
 });
 
-export default connect(mapStateToProps)(Dashboard);
+export default connect(mapStateToProps, { saveToDB, saveScores })(Dashboard);

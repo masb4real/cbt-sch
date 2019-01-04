@@ -12,7 +12,7 @@ class Question extends Component {
   componentWillMount() {
     const { question: { id }} = this.props;
     const selected = localStorage.getItem(`q_${id}`);
-    console.log(`q_${id}`)
+  
     if(selected !== null) {
       this.setState({ selected });
     }
@@ -75,6 +75,7 @@ class Question extends Component {
             <input type="radio" value="D" name={id} defaultChecked={selected === "D"} onChange={this.handleChange}/> D - {d}
           </label>
         </div>
+        <hr />
     </>;
   }
 }

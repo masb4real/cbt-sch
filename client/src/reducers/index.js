@@ -5,14 +5,30 @@ import studentsReducer from './students_reducer';
 import subjectsReducer from './subjects_reducer';
 import questionsReducer from './questions_reducers';
 import selectedSubjectReducer from './selected_subjects_reducer';
+import scoresReducer from './scores_reducer';
 
-const reducers = combineReducers({
+import { USER_LOGOUT } from '../actions/types';
+import storage from 'redux-persist/lib/storage'
+
+const appReducer = combineReducers({
   auth: authReducer,
   students: studentsReducer,
   subjects: subjectsReducer,
   questions: questionsReducer,
   selectedSubjects: selectedSubjectReducer,
-  exam: examReducer
+  exam: examReducer,
+  scores: scoresReducer
 });
 
-export default reducers;
+const rootReducer = (state, action) => {
+  if (action.type === USER_LOGOUT) {
+    Object.keys(state).forEach(key => {
+      storage.removeItem(`persist:${key}`);
+    });
+    state = undefined
+  }
+
+  return appReducer(state, action)
+}
+
+export default rootReducer;

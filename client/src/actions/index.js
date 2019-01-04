@@ -5,7 +5,9 @@ import {
   AUTH_ADMIN,
   AUTH_ERROR,
   ADD_STUDENT,
-  UNAUTH_USER,
+  GET_SCORES,
+  SAVE_SCORES,
+  USER_LOGOUT,
   SAVE_OPTIONS,
   FETCH_MESSAGE,
   FETCH_SUBJECTS,
@@ -144,10 +146,9 @@ export function authError(error) {
 }
 
 export function signoutUser() {
-  localStorage.removeItem('token');
-  localStorage.removeItem('role');
+  localStorage.clear();
   return {
-    type: UNAUTH_USER
+    type: USER_LOGOUT
   };
 }
 
@@ -239,6 +240,47 @@ export const saveOptions = question => {
     dispatch({
       type: SAVE_OPTIONS,
       payload: question
+    })
+  }
+}
+
+export const saveToDB= data => {
+  return dispatch => {
+    axios
+      .post(`${ROOT_URL}/exam/save`, data, {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: localStorage.getItem("token")
+        }
+      })
+      .then(res => console.log(res))
+      .catch(error => console.log(error));
+  }
+}
+
+export const getDBScores = score => {
+  return dispatch => {
+    axios.get(`${ROOT_URL}/students`, {
+      headers: { authorization: localStorage.getItem('token')}
+    })
+    .then(response => {
+      console.log(response)
+      dispatch({
+        type: GET_SCORES,
+        payload: response.data.students
+      });
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  }
+}
+
+export const saveScores = score => {
+  return dispatch => {
+    dispatch({
+      type: SAVE_SCORES,
+      payload: score
     })
   }
 }

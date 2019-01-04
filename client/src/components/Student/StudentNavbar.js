@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import history from '../../history';
 import {
   Navbar,
   NavbarToggler,
@@ -25,6 +26,16 @@ class StudentNavbar extends Component {
     });
   }
 
+  onSubmit = () => {
+    if(window.confirm("Are you sure you want to sumit your exam")) {
+      console.log('yex');
+      this.props.stopExam();
+      history.push('/student/view-result');
+    } else {
+      console.log('no')
+    }
+  }
+
   renderButtons = () => {
     if(this.props.startExam === "true") {
       return (
@@ -33,7 +44,7 @@ class StudentNavbar extends Component {
             <button className="btn-nav btn btn-outline-success">12: 55</button>
           </NavItem>
           <NavItem>
-            <button className="btn-nav btn btn-danger">Finish Exam</button>
+            <button type="button" onClick={this.onSubmit} className="btn-nav btn btn-danger">Finish Exam</button>
           </NavItem>
         </Nav>
       );

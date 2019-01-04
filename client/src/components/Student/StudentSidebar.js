@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { signoutUser } from '../../actions';
 
 class StudentSidebar extends Component {
+
   render() {
     const { path, selected, drawer, startExam, name } = this.props;
     return <aside id="drawer" ref={drawer} className="dark_blue">
@@ -23,7 +25,7 @@ class StudentSidebar extends Component {
               <Link to={`${path}/my-exams`}>My Exams</Link>
             </li>
             <li>
-              <button className="btn btn-danger">Logout</button>
+              <button onClick={() => this.props.signoutUser()} className="btn btn-danger">Logout</button>
             </li>
           </ul>
         )
@@ -34,4 +36,4 @@ class StudentSidebar extends Component {
 
 const mapStateToProps = state => ({ selected: state.selectedSubjects });
 
-export default connect(mapStateToProps)(StudentSidebar);
+export default connect(mapStateToProps, { signoutUser })(StudentSidebar);

@@ -50,8 +50,6 @@ class WriteExam extends Component {
           {this.state.questions.map((data, i) => {
            return <Question key={i} mark={length} question={data} index={i}/>
           })}
-          <br />
-          <button className="btn btn-success">Next >></button>
         </form>
       </div>
     );
