@@ -12,6 +12,7 @@ class WriteExam extends Component {
     const { match: { params: { subjectId }}} = this.props;
     // get questions for current subject
     this.getCurrentSubjectQuestions(subjectId);
+  
   }
 
   componentWillReceiveProps(nextProps) {
@@ -34,6 +35,7 @@ class WriteExam extends Component {
 
   render() {
     const { questions } = this.state;
+    const length = (75 / questions.length);
 
     if(questions.length <= 0) {
       return (
@@ -46,7 +48,7 @@ class WriteExam extends Component {
       <div className="col-md-12">
         <form>
           {this.state.questions.map((data, i) => {
-           return <Question key={i} question={data} index={i}/>
+           return <Question key={i} mark={length} question={data} index={i}/>
           })}
           <br />
           <button className="btn btn-success">Next >></button>

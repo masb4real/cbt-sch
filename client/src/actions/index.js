@@ -6,6 +6,7 @@ import {
   AUTH_ERROR,
   ADD_STUDENT,
   UNAUTH_USER,
+  SAVE_OPTIONS,
   FETCH_MESSAGE,
   FETCH_SUBJECTS,
   FETCH_QUESTIONS,
@@ -232,3 +233,12 @@ export const saveSelectedSubjects = subjects => {
     });
   };
 };
+
+export const saveOptions = question => {
+  return dispatch => {
+    dispatch({
+      type: SAVE_OPTIONS,
+      payload: question
+    })
+  }
+}

@@ -1,5 +1,6 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from "redux";
 import authReducer from "./auth_reducer";
+import examReducer from "./exam_reducer";
 import studentsReducer from './students_reducer';
 import subjectsReducer from './subjects_reducer';
 import questionsReducer from './questions_reducers';
@@ -10,7 +11,8 @@ const reducers = combineReducers({
   students: studentsReducer,
   subjects: subjectsReducer,
   questions: questionsReducer,
-  selectedSubjects: selectedSubjectReducer
+  selectedSubjects: selectedSubjectReducer,
+  exam: examReducer
 });
 
 export default reducers;

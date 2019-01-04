@@ -16,19 +16,28 @@ main {
   height: 100%;
 }
 
+WriteExam {
+  position: absolute;
+  overflow-y: scroll;
+
+}
 /*
   * Off-canvas layout styles.
   */
 
 /* Since we're mobile-first, by default, the drawer is hidden. */
 aside {
+  position: fixed;
+  top:0;
+  left: 0;
   width: 210px;
   min-width: 210px;
   min-height: 100%;
   height: 100%;
-  position: fixed;
+  overflow-y: scroll;
   background: #0A745B;
   color: #eee;
+  z-index: 3;
   /* This trasform moves the drawer off canvas. */
   -webkit-transform: translate(-210px, 0);
   transform: translate(-210px, 0);
@@ -67,6 +76,11 @@ aside.open {
 .sidebar-list li a:hover {
   background: rgb(17, 151, 120);
   border-left: 4px solid #eee;
+}
+
+input[type=radio] {
+  width: 1.2em;
+  height: 1.0em;
 }
 
 

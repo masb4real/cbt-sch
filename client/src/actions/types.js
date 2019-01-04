@@ -4,6 +4,7 @@ export const UNAUTH_USER = 'unauth_user';
 export const AUTH_ADMIN = 'auth_admin';
 export const UNAUTH_ADMIN = 'unauth_admin';
 export const AUTH_ERROR = 'auth_error';
+export const SAVE_OPTIONS = 'save_options';
 export const FETCH_SUBJECTS = 'fetch_subjects';
 export const FETCH_QUESTIONS = 'fetch_questions';
 export const FETCH_MESSAGE = 'fetch_message';

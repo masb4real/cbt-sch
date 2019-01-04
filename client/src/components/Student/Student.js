@@ -32,8 +32,17 @@ class Dashboard extends Component {
 
   start = () => {
     localStorage.setItem('startExam', "true");
-    this.setState({ startExam: "true" });
-    console.log(this.props.startExam);
+    this.setState({ startExam: "true" });;
+  }
+
+  stop = () => {
+    const { exam, selected } = this.props;
+
+    localStorage.setItem('startExam', "false");
+    this.setState({ startExam: "false" });
+    // get scores  for each subject
+    
+
   }
 
   render() {
@@ -55,6 +64,10 @@ class Dashboard extends Component {
   }
 }
 
-const mapStateToProps = state => ({ data: state.auth.data, selected: state.selectedsubjects });
+const mapStateToProps = state => ({ 
+  data: state.auth.data, 
+  selected: state.selectedsubjects,
+  exam: state.exam
+});
 
 export default connect(mapStateToProps)(Dashboard);
