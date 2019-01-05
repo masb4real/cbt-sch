@@ -174,6 +174,25 @@ export function signoutUser() {
 
 }
 
+
+export const addQuestion = question => {
+  return dispatch => {
+    axios.post(`${ROOT_URL}/questions`, question, {
+      headers: {
+        "Authorization": localStorage.getItem('token')
+      }
+    })
+    .then(response => {
+      console.log(response);
+      // dispatch({ 
+      //   type: ADD_SUBJECT,
+      //   payload: response.data
+      //  });
+    })
+    .catch(error => console.log(error))
+  }
+}
+
 export function fetchMessage() {
   return function (dispatch) {
     axios.get(ROOT_URL, {

@@ -41,7 +41,7 @@ aside {
   z-index: 1;
   width: 200px;
   /* overflow-y: scroll; */
-  background: #29c997;
+  background: #00695c;
 }
 /* aside.open {
   -webkit-transform: translate(0, 0);

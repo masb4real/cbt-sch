@@ -53,22 +53,30 @@ class QuestionsController extends Controller {
 
   public function create($app) {
     // get the request body
-    $request = json_decode(file_get_contents('php://input'), true);
+    $request = json_decode(file_get_contents('php://input'));
     // get var out of request body
-    $subjectId = trim($request["subjectId"]);
-    $question = trim($request["question"]);
-    $a = trim($request["a"]);
-    $b = trim($request["b"]);
-    $c = trim($request["c"]);
-    $d = trim($request["d"]);
-    $answer = trim($request["answer"]);
-    $photo = $_FILES["photo"]["name"];
+    // $subject_id = $request["subject_id"];
+    // $question = trim($request["question"]);
+    // $a = trim($request["a"]);
+    // $b = trim($request["b"]);
+    // $c = trim($request["c"]);
+    // $d = trim($request["d"]);
+    // $answer = $request["answer"];
+    // $photo =  $request['photo'];
 
+    print_r($request);
+
+
+    // print_r($photo);
+    die();
+
+    // print_r($request);
+    // die();
     // validate inputs
     if(empty($subject_id)) {
       http_response_code(400);
       return print(json_encode(array(
-        "message" => "Subject no selectedd"
+        "message" => "Subject no selected"
       )));
     }
 
@@ -157,6 +165,10 @@ class QuestionsController extends Controller {
       
       $photo = "online_cbt_".date('h_i_s').time().".".$ext;
       $target_file = $target_dir . $photo;
+
+      print($tmp_name);
+      print($photo);
+      print_r($target_file);
       // reset photo to take full url
       $photo = "/".$target_file;
       // upload image to images folder
@@ -164,8 +176,11 @@ class QuestionsController extends Controller {
 
     }
 
+    print_r($request);
+    die();
+
     // sql to create new question
-    $sql = "INSERT INTO questions(subjectid, question, a, b, c, d, answer, photo) VALUES('$subjectId', '$question', '$a', '$b', '$c', '$d', '$answer')";
+    $sql = "INSERT INTO questions(subject_id, question, a, b, c, d, answer, photo) VALUES('$subject_id', '$question', '$a', '$b', '$c', '$d', '$answer', '$photo')";
     // execute sql
     if($this->db->exec($sql)) {
       // select and return created question

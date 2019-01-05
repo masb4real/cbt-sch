@@ -26,7 +26,6 @@ class AdminDashboard extends Component {
   }
 
   componentDidMount() {
-    console.log('get subjects');
     if(this.props.subjects.length <= 0) {
       this.props.fetch_subjects();
     } 
@@ -43,7 +42,7 @@ class AdminDashboard extends Component {
               <path d="M2 6h20v3H2zm0 5h20v3H2zm0 5h20v3H2z" />
             </svg>
           </span>
-          <section className="container-fluid" onClick={this.toggleDrawer}>
+          <section className="container-fluid" >
             <Switch>
               <Route exact path={`${match.path}`} component={DashBoard} />
               <Route path={`${match.path}/students`} component={Students} />
