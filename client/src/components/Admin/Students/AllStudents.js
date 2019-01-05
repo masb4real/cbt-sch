@@ -6,7 +6,6 @@ class AllStudents extends Component {
   componentWillMount() {
     const { students } = this.props;
     if (students.length <= 0) {
-      console.log('fetching students');
       this.props.fetchAllStudents();
     }
   }
@@ -18,20 +17,14 @@ class AllStudents extends Component {
         return (
           <tr key={student.user_id}>
             <td>{student.name}</td>
-            <td>{student.exam_number}</td>
-            <td>
-              <button className="btn btn-warning btn-sm">Edit</button>
-            </td>
-            <td>
-              <button className="btn btn-danger btn-sm">Delete</button>
-            </td>
+            <td>{student.exam_number}</td>        
           </tr>
         )
       })
     } else {
-      return (
-        <div>No Student found</div>
-      );
+      return <tr>
+          <td colSpan="2">No Student found</td>
+        </tr>;
     }
   }
 
@@ -42,8 +35,6 @@ class AllStudents extends Component {
           <tr>
             <th>Name</th>
             <th>Exam Number</th>
-            <th>Edit</th>
-            <th>Delete</th>
           </tr>
         </thead>
         <tbody>

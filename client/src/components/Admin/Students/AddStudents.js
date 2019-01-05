@@ -25,10 +25,9 @@ class AddStudents extends Component {
     const { createStudent } = this.props;
 
     const data = { name, exam_number };
-    console.log('atempt to create student');
     createStudent(data)
-    this.setState({name: "", exam_number: ""});
-    this.setState({success: true});
+    this.setState({ name: "", exam_number: "", success: true });
+    this.props.toggle('1');
   }
 
   renderMsg() {

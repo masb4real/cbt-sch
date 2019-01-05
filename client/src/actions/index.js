@@ -8,6 +8,7 @@ import {
   GET_SCORES,
   SAVE_SCORES,
   USER_LOGOUT,
+  ADD_SUBJECT,
   SAVE_OPTIONS,
   FETCH_MESSAGE,
   FETCH_SUBJECTS,
@@ -142,6 +143,25 @@ export function authError(error) {
   return {
     type: AUTH_ERROR,
     payload: error
+  }
+}
+
+export const addSubject = subject => {
+  return dispatch => {
+    axios.post(`${ROOT_URL}/subjects`, subject, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": localStorage.getItem('token')
+      }
+    })
+    .then(response => {
+      console.log(response);
+      dispatch({ 
+        type: ADD_SUBJECT,
+        payload: response.data
+       });
+    })
+    .catch(error => console.log(error))
   }
 }
 

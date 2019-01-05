@@ -65,7 +65,7 @@ export default class Students extends Component {
           </TabPane>
           <TabPane tabId="2">
             <Row>
-              <AddStudents />
+              <AddStudents toggle={this.toggle} />
             </Row>
           </TabPane>
         </TabContent>

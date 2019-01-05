@@ -1,6 +1,24 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-export default class AllSubjects extends Component {
+class AllSubjects extends Component {
+
+  renderTable = () => {
+    const { subjects } = this.props;
+    if(subjects.lenght <= 0) {
+      return <tr><td colSpan="2">No subjects found</td></tr>
+    } else {
+      return subjects.map((subject, i) => {
+        return <tr key={i}>
+            <td>{subject.name}</td>
+            <td>
+              <button className="btn btn-warning btn-sm">Edit</button>
+            </td>
+          </tr>;
+      })
+    }
+  }
+
   render() {
     return (
       <table className="table table-striped">
@@ -8,21 +26,16 @@ export default class AllSubjects extends Component {
           <tr>
             <th>Subject Name:</th>
             <th>Edit</th>
-            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>English</td>
-            <td>
-              <button className="btn btn-warning btn-sm">Edit</button>
-            </td>
-            <td>
-              <button className="btn btn-danger btn-sm">delete</button>
-            </td>
-          </tr>
+          {this.renderTable()}
         </tbody>
       </table>
     )
   }
 }
+
+const mapStateToProps = state => ({ subjects: state.subjects });
+
+export default connect(mapStateToProps)(AllSubjects);

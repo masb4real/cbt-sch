@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { addSubject } from '../../../actions';
 
 class AddSubject extends Component {
   state = {
@@ -10,6 +12,9 @@ class AddSubject extends Component {
     const { name } = this.state;
     const data = { name };
     console.log(data);
+    this.props.addSubject(data);
+    this.setState({ name: "" });
+    this.props.toggle("1");
   }
 
   render() {
@@ -44,4 +49,4 @@ class AddSubject extends Component {
   }
 }
 
-export default AddSubject;
+export default connect(null, { addSubject })(AddSubject);

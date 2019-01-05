@@ -34,7 +34,6 @@ class AdminDashboard extends Component {
 
   render() {
     const { match, data } = this.props;
-    console.log(this.props);
     return (
       <div className="wrap">
         <SideBar path={match.path} data={data} drawer={this.drawer}/>

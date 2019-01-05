@@ -66,7 +66,7 @@ class Subjects extends Component {
           </TabPane>
           <TabPane tabId="2">
             <Row>
-              <AddSubject />
+              <AddSubject toggle={this.toggle} />
             </Row>
           </TabPane>
         </TabContent>

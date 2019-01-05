@@ -104,13 +104,11 @@ class Controller {
     // get the timestamp in unix format (Epoch)
     $currentTime = $currentTime->getTimestamp(); 
     // get 20 minutes ahead of current time in unix format (Epoch)
-    $plus3hours = strtotime("+3 hours");
     // create the JWT payload
     $payload = array(
       "iss" => "https://cbt.ng/",
       "aud" => "https://cbt.ng/",
-      "iat" => $currentTime,
-      "exp" => $plus3hours,
+      "iat" => $currentTime
     );
     // genarate JWT
     return JWT::encode($payload, $this->JWTkey); 
