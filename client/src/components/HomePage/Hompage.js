@@ -7,8 +7,9 @@ const HomePage = () => {
     <div>
       <Navigation />
       <header className="jumbotron text-center">
-        <h1>Welcome to CBT</h1>
-        <p>An online platform where user can practice a computer base text</p>
+        <h1>Welcome to Harmony International School CBT</h1>
+        <br />
+        <h4>An online platform where user can practice a Computer Base Test</h4>
       </header>
     </div>
   );

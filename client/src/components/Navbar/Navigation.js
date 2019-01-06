@@ -42,7 +42,7 @@ class Navigation extends Component {
                 <Link to="/" className="nav-link">Home</Link>
               </NavItem>
               <NavItem>
-                <Link to="/login" className="btn-nav btn btn-outline-success">Login</Link> 
+                <Link to="/login" className="btn-nav btn btn-outline-success">Student</Link> 
               </NavItem>
               <NavItem>
                 <Link to="/admin-login" className="btn-nav btn btn-outline-success">Admin</Link>

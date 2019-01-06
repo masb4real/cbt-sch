@@ -86,8 +86,6 @@ class Dashboard extends Component {
       total
     }
 
-    console.log('db data', obj);
-    console.log('scores', examScores);
     this.props.saveToDB(obj);
     this.props.saveScores(examScores);
   

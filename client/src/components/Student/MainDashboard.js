@@ -13,7 +13,8 @@ class MainDashboard extends Component {
       subject_1: "",
       subject_2: "",
       subject_3: "",
-      subject_4: ""
+      subject_4: "",
+      disabled: false
     }
 
   }
@@ -80,26 +81,27 @@ class MainDashboard extends Component {
     e.preventDefault();
     const { subject_1, subject_2, subject_3, subject_4} = this.state;
     let selected = [subject_1, subject_2, subject_3, subject_4];
+    this.setState({disabled: true});
 
     if (subject_1 === "" || subject_2 === "" || subject_3 === "" || subject_4 === "") {
+      this.setState({disabled: true});
       return alert("All four subjects must be selected");
     }
     
-    console.log('form submitted');
+    const subjects = selected.toString();
+    // get question selected subjects
+    this.props.fetch_questions(subjects);
+    
     const all = selected.map((select, i) => {
       return this.props.subjects.find(subject => subject.id === select);
     });
 
     this.props.saveSelectedSubjects(all);
-    // convert selected array to string
-    selected = selected.toString();
-    // get question selected subjects
-    this.props.fetch_questions(selected);
 
     // start exam
     this.props.start();
     // redirect to exam interface
-    history.push(`/student/write-exam/${selected[0]}`);
+    history.push(`/student/write-exam/${parseInt(selected[0])}`);
 
   }
 
@@ -140,7 +142,7 @@ class MainDashboard extends Component {
                       {this.renderOptions()}
                     </select>
                   </div>
-                  <button onClick={this.onSubmit} className="btn btn-block btn-warning" type="submit">Start Exam</button>
+                  <button onClick={this.onSubmit} disabled={this.state.disabled} className="btn btn-block btn-warning" type="submit">Start Exam</button>
                 </form>
               </div>
             </div>

@@ -9,6 +9,8 @@ import {
   NavItem
 } from 'reactstrap';
 
+let countdown;
+
 class StudentNavbar extends Component {
   constructor(props) {
     super(props);
@@ -40,7 +42,6 @@ class StudentNavbar extends Component {
   }
 
   timer = (seconds) => {
-    let countdown;
 
     const now = Date.now();
     const then = now + seconds * 1000;
@@ -77,6 +78,7 @@ class StudentNavbar extends Component {
     if(window.confirm("Are you sure you want to sumit your exam")) {
       console.log('yex');
       this.props.stopExam();
+      clearInterval(countdown);
       history.push('/student/view-result');
     } else {
       console.log('no')

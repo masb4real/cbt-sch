@@ -9,9 +9,24 @@ class WriteExam extends Component {
   }
 
   componentWillMount() {
-    const { match: { params: { subjectId }}} = this.props;
-    // get questions for current subject
-    this.getCurrentSubjectQuestions(subjectId);
+    // let time;
+    // time = setTimeout(() => {
+    const { match: { params: { subjectId } } } = this.props;
+    if (this.state.questions === null) {
+      this.getCurrentSubjectQuestions(subjectId);
+    }
+    // }, 1000);
+
+    // clearTimeout(time);
+    
+  }
+
+  componentDidMount() {
+
+    const { match: { params: { subjectId } } } = this.props;
+    if (this.state.questions === null) {
+      this.getCurrentSubjectQuestions(subjectId);
+    }
   
   }
 
@@ -27,6 +42,10 @@ class WriteExam extends Component {
 
   getCurrentSubjectQuestions = (subjectId) => {
     const { questions } = this.props; // questions from props
+
+    if(!questions) {
+      return;
+    }
     // get questions for current subject
     const all = questions[subjectId];
     // update component state
@@ -35,7 +54,15 @@ class WriteExam extends Component {
 
   render() {
     const { questions } = this.state;
-    const length = (75 / questions.length);
+
+    if(questions === null) {
+      return (
+        <div className="mt-5 text-center">
+          <br /><br />
+          <h5>Loading questions...</h5>
+        </div>
+      );
+    }
 
     if(questions.length <= 0) {
       return (
@@ -44,6 +71,7 @@ class WriteExam extends Component {
         </h5>
       )
     }
+    const length = 75 / questions.length;
     return (
       <div className="col-md-12 mt-5">
         <br /><br />
