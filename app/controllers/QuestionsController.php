@@ -53,7 +53,7 @@ class QuestionsController extends Controller {
 
   public function create($app) {
     // get the request body
-    $request = json_decode(file_get_contents('php://input'));
+    $request = json_decode(file_get_contents('php://input'), true);
     // get var out of request body
     // $subject_id = $request["subject_id"];
     // $question = trim($request["question"]);
@@ -64,7 +64,7 @@ class QuestionsController extends Controller {
     // $answer = $request["answer"];
     // $photo =  $request['photo'];
 
-    print_r($request);
+    print_r($app);
 
 
     // print_r($photo);
