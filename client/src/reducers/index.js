@@ -6,6 +6,7 @@ import subjectsReducer from './subjects_reducer';
 import questionsReducer from './questions_reducers';
 import selectedSubjectReducer from './selected_subjects_reducer';
 import scoresReducer from './scores_reducer';
+import resultsReducer from './results_reducer';
 
 import { USER_LOGOUT } from '../actions/types';
 import storage from 'redux-persist/lib/storage'
@@ -16,6 +17,7 @@ const appReducer = combineReducers({
   subjects: subjectsReducer,
   questions: questionsReducer,
   selectedSubjects: selectedSubjectReducer,
+  results: resultsReducer,
   exam: examReducer,
   scores: scoresReducer
 });

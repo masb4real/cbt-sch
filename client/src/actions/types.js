@@ -12,6 +12,7 @@ export const AUTH_ERROR = 'auth_error';
 export const SAVE_OPTIONS = 'save_options';
 export const FETCH_SUBJECTS = 'fetch_subjects';
 export const FETCH_QUESTIONS = 'fetch_questions';
+export const FETCH_ALL_EXAMS = 'fetch_all_exams';
 export const FETCH_MESSAGE = 'fetch_message';
 export const FETCH_ALL_STUDENTS = "fetch_all_student";
 export const ADD_SELECTED_SUBJECTS = "add_selected_subjects";

@@ -13,6 +13,7 @@ import {
   FETCH_MESSAGE,
   FETCH_SUBJECTS,
   FETCH_QUESTIONS,
+  FETCH_ALL_EXAMS,
   FETCH_ALL_STUDENTS,
   ADD_SELECTED_SUBJECTS
 } from "./types";
@@ -249,13 +250,30 @@ export const fetch_subjects = () => {
   }
 }
 
+export const fetchAllExams = () => {
+  return dispatch => {
+    axios.get(`${ROOT_URL}/exams`, {
+      headers: { authorization: localStorage.getItem('token') }
+    })
+    .then(response => {
+      console.log(response);
+      dispatch({
+        type: FETCH_ALL_EXAMS,
+        payload: response.data.exams
+      });
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+}
+
 export const fetchAllStudents = () => {
   return dispatch => {
     axios.get(`${ROOT_URL}/students`, {
       headers: { authorization: localStorage.getItem('token')}
     })
     .then(response => {
-      console.log(response)
       dispatch({
         type: FETCH_ALL_STUDENTS,
         payload: response.data.students

@@ -34,6 +34,9 @@ class SideBar extends Component {
               <Link to={`${path}/questions`}>Questions</Link>
             </li>
             <li>
+              <Link to={`${path}/students-exams`}>Students Exams</Link>
+            </li>
+            <li>
               <button onClick={this.logout} className="btn btn-danger">Logout</button>
             </li>
           </ul>

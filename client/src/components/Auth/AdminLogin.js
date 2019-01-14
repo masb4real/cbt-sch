@@ -69,4 +69,7 @@ class AdminLogin extends Component {
   }
 }
 
-export default connect(null, { signinAdmin })(AdminLogin);
+export default connect(
+  null,
+  { signinAdmin }
+)(AdminLogin);
