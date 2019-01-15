@@ -64,7 +64,7 @@ class Dashboard extends Component {
     const allScores = [score1, score2, score3, score4]
     const total = allScores.reduce((x, y) => x + y); // total mark
     const examScores = selected.map((data, i) => {
-      return { id: data.id, name: data.name, score: allScores[i] };
+      return { id: data.id, name: data.name, score: Math.ceil(allScores[i]) };
     })
 
     // the object to send to the database
@@ -73,8 +73,7 @@ class Dashboard extends Component {
       subject1: `${selected[0].name}-${score1}`,
       subject2: `${selected[1].name}-${score2}`,
       subject3: `${selected[2].name}-${score3}`,
-      subject4: `${selected[3].name}-${score4}`,
-      total
+      subject4: `${selected[3].name}-${score4}`
     }
 
     // clean localStorage for selectted values
