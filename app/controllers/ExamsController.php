@@ -6,9 +6,24 @@
 class ExamsController extends Controller
 {
   
-  public function index($app)
-  {
-    
+  public function index($app) {
+    $app->set('exams', $this->db->exec("SELECT users.name, exams.subject1, exams.subject2, exams.subject3, exams.subject4, exams.total FROM users INNER JOIN exams ON users.id=exams.user_id ORDER BY exams.user_id DESC"));
+
+    if(count($app->get('exams')) > 0) {
+      $res = array(
+        "message" => "Exams fetched sucessfully",
+        "exams" => $app->get('exams')
+      );
+      http_response_code(200);
+      echo json_encode($res);
+    } else {
+      $res = array(
+        "message" => "No exams found",
+        "exams" => []
+      );
+      http_response_code(404);
+      echo json_encode($res);
+    }
 
   }
 
@@ -20,9 +35,10 @@ class ExamsController extends Controller
     $subject2 = $req['subject2'];
     $subject3 = $req['subject3'];
     $subject4 = $req['subject4'];
-    $total = $req['user_id'];
 
-    $sql = "INSERT INTO exams(user_id, subject1, subject2, subject3, subject4, total) VALUES('$user_id', '$subject1', '$subject2', '$subject3', '$subject4', '$total')";
+    $date_created = date("dS M, Y h:i:a");
+
+    $sql = "INSERT INTO exams(user_id, subject1, subject2, subject3, subject4, total) VALUES('$user_id', '$subject1', '$subject2', '$subject3', '$subject4', '$date_created')";
 
     if($this->db->exec($sql)) {
       $res = array(
