@@ -62,7 +62,7 @@ class Dashboard extends Component {
     const score4 = (fourth.length <= 0) ? 0 : fourth.map(item => item.mark).reduce((x, y) => x + y);
     // store final answers
     const allScores = [score1, score2, score3, score4]
-    const total = allScores.reduce((x, y) => x + y); // total mark
+
     const examScores = selected.map((data, i) => {
       return { id: data.id, name: data.name, score: Math.ceil(allScores[i]) };
     })
