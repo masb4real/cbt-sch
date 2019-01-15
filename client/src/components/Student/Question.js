@@ -26,8 +26,6 @@ class Question extends Component {
       selected: e.target.value,
     });
 
-
-
     // save selected to localStore
     localStorage.setItem(`q_${e.target.name}`, e.target.value);
 

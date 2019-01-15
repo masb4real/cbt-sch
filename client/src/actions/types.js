@@ -16,3 +16,7 @@ export const FETCH_ALL_EXAMS = 'fetch_all_exams';
 export const FETCH_MESSAGE = 'fetch_message';
 export const FETCH_ALL_STUDENTS = "fetch_all_student";
 export const ADD_SELECTED_SUBJECTS = "add_selected_subjects";
+export const CLEAR_SELECTED_SUBJECTS = "clear_selected_subjects";
+export const CLEAR_QUESTIONS = "clear_questions";
+export const CLEAR_OPTIONS = "clear_options";
+export const ROOT_URL = 'http://localhost/cbt-sch';

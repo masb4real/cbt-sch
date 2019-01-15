@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
+import axios from 'axios';
+import { ROOT_URL } from '../../actions/types';
 import {
   fetch_subjects,
-  fetch_questions,
+  saveQuestions,
   saveSelectedSubjects
 } from "../../actions";
 import history from '../../history';
@@ -14,18 +16,14 @@ class MainDashboard extends Component {
       subject_2: "",
       subject_3: "",
       subject_4: "",
-      disabled: false
     }
-
   }
-  
 
   componentWillMount() {
     const { subjects } = this.props;
     if(subjects.length <= 0) {
       this.props.fetch_subjects();
     }
-    // this.props.fetch_subjects();
   }
 
   renderOptions = () => {
@@ -46,34 +44,38 @@ class MainDashboard extends Component {
   }
 
   handleSelect1 = e => {
-    if (e.target.value !== this.state.subject_2 || e.target.value !== this.state.subject_3 || e.target.value !== this.state.subject_4) {
+    if (e.target.value !== this.state.subject_2 && e.target.value !== this.state.subject_3 && e.target.value !== this.state.subject_4) {
       this.setState({ subject_1: e.target.value });
     } else {
-      return alert("You cannot select the same subject twice");
+      window.alert("You cannot select the same subject twice");
+      return;
     }
   }
 
   handleSelect2 = e => {
-    if (e.target.value !== this.state.subject_1 || e.target.value !== this.state.subject_3 || e.target.value !== this.state.subject_4) {
+    if (e.target.value !== this.state.subject_1 && e.target.value !== this.state.subject_3 && e.target.value !== this.state.subject_4) {
       this.setState({ subject_2: e.target.value });
     } else {
-      return alert("You cannot select the same subject twice");
+      window.alert("You cannot select the same subject twice");
+      return;
     }
   }
 
   handleSelect3 = e => {
-    if (e.target.value !== this.state.subject_1 || e.target.value !== this.state.subject_2 || e.target.value !== this.state.subject_4) {
+    if (e.target.value !== this.state.subject_1 && e.target.value !== this.state.subject_2 && e.target.value !== this.state.subject_4) {
       this.setState({ subject_3: e.target.value });
     } else {
-      return alert("You cannot select the same subject twice");
+      window.alert("You cannot select the same subject twice");
+      return;
     }
   }
 
   handleSelect4 = e => {
-    if (e.target.value !== this.state.subject_1 || e.target.value !== this.state.subject_2 || e.target.value !== this.state.subject_3 ) {
+    if (e.target.value !== this.state.subject_1 && e.target.value !== this.state.subject_2 && e.target.value !== this.state.subject_3 ) {
       this.setState({ subject_4: e.target.value });
     } else {
-      return alert("You cannot select the same subject twice");
+      window.alert("You cannot select the same subject twice");
+      return;
     }
   }
 
@@ -81,35 +83,46 @@ class MainDashboard extends Component {
     e.preventDefault();
     const { subject_1, subject_2, subject_3, subject_4} = this.state;
     let selected = [subject_1, subject_2, subject_3, subject_4];
-    this.setState({disabled: true});
 
-    if (subject_1 === "" || subject_2 === "" || subject_3 === "" || subject_4 === "") {
-      this.setState({disabled: true});
-      return alert("All four subjects must be selected");
+    if (subject_1 === "" && subject_2 === "" && subject_3 === "" && subject_4 === "") {
+      window.alert("All four subjects must be selected");
+      return;
     }
-    
-    const subjects = selected.toString();
-    // get question selected subjects
-    this.props.fetch_questions(subjects);
     
     const all = selected.map((select, i) => {
       return this.props.subjects.find(subject => subject.id === select);
     });
-
+    // save selected subjects to redux
     this.props.saveSelectedSubjects(all);
-
-    // start exam
-    this.props.start();
-    // redirect to exam interface
-    history.push(`/student/write-exam/${parseInt(selected[0])}`);
+    // stringify subjects
+    const subjects = selected.toString();
+    // get question selected subjects
+    axios.get(`${ROOT_URL}/questions/exam`, {
+      headers: { 
+        authorization: localStorage.getItem('token'),
+        subjects
+      }
+    })
+    .then(response => {
+      // save questions for selected subjects
+      this.props.saveQuestions(response.data.questions);
+      // start exam
+      this.props.start();  
+      // redirect to exam interface
+      history.push(`/student/write-exam`);
+    })
+    .catch(error => {
+      console.log(error);
+    });
 
   }
 
   render() {
-    return <div className="col-md-12 mt-5">
-      <br /><br />
-      <h3>Wecome to Student Dashboard</h3>
-      <br />
+    return (
+      <div className="col-md-12 mt-5">
+        <br /><br />
+        <h3>Wecome to Student Dashboard</h3>
+        <br />
         <div className="row">
           <div className="col">
             <div className="card">
@@ -165,7 +178,8 @@ class MainDashboard extends Component {
             </div>
           </div>
         </div>
-      </div>;
+      </div>
+    );  
   }
 }
 
@@ -173,5 +187,5 @@ const mapStateToProps = state => ({ subjects: state.subjects });
 
 export default connect(
   mapStateToProps,
-  { fetch_subjects, fetch_questions, saveSelectedSubjects }
+  { fetch_subjects, saveQuestions, saveSelectedSubjects }
 )(MainDashboard);

@@ -8,17 +8,19 @@ import {
   GET_SCORES,
   SAVE_SCORES,
   USER_LOGOUT,
+  ROOT_URL,
   ADD_SUBJECT,
   SAVE_OPTIONS,
+  CLEAR_OPTIONS,
   FETCH_MESSAGE,
+  CLEAR_QUESTIONS,
   FETCH_SUBJECTS,
   FETCH_QUESTIONS,
   FETCH_ALL_EXAMS,
   FETCH_ALL_STUDENTS,
-  ADD_SELECTED_SUBJECTS
+  ADD_SELECTED_SUBJECTS,
+  CLEAR_SELECTED_SUBJECTS
 } from "./types";
-
-const ROOT_URL = 'http://localhost/cbt-sch';
 
 export function signinUser({ exam_number }) {
   return function (dispatch) {
@@ -185,10 +187,10 @@ export const addQuestion = question => {
     })
     .then(response => {
       console.log(response);
-      // dispatch({ 
-      //   type: ADD_SUBJECT,
-      //   payload: response.data
-      //  });
+      dispatch({ 
+        type: ADD_SUBJECT,
+        payload: response.data
+       });
     })
     .catch(error => console.log(error))
   }
@@ -229,6 +231,15 @@ export const fetch_questions = (subjects) => {
     });
   }
 }
+
+export const saveQuestions = questions => {
+  return dispatch => {
+    dispatch({ 
+      type: FETCH_QUESTIONS, 
+      payload: questions 
+    });
+  };
+};
 
 export const fetch_subjects = () => {
   return dispatch => {
@@ -340,6 +351,30 @@ export const saveScores = score => {
     dispatch({
       type: SAVE_SCORES,
       payload: score
+    })
+  }
+}
+
+export const clearSelectedSubjects = () => {
+  return dispatch => {
+    dispatch({
+      type: CLEAR_SELECTED_SUBJECTS
+    })
+  }
+}
+
+export const clearQuestions = () => {
+  return dispatch => {
+    dispatch({
+      type: CLEAR_QUESTIONS
+    })
+  }
+}
+
+export const clearOptions = () => {
+  return dispatch => {
+    dispatch({
+      type: CLEAR_OPTIONS
     })
   }
 }

@@ -1,4 +1,4 @@
-import { SAVE_OPTIONS } from '../actions/types';
+import { SAVE_OPTIONS, CLEAR_OPTIONS } from '../actions/types';
 
 export default function(state = [], action) {
   switch(action.type) {
@@ -24,6 +24,8 @@ export default function(state = [], action) {
           return [...state, action.payload];
         }
       }
+    case CLEAR_OPTIONS:
+      return [];
     default: 
       return state; 
   }

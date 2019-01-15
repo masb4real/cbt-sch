@@ -76,12 +76,10 @@ class StudentNavbar extends Component {
 
   onSubmit = () => {
     if(window.confirm("Are you sure you want to sumit your exam")) {
-      console.log('yex');
       this.props.stopExam();
       clearInterval(countdown);
+      localStorage.removeItem('remainder');
       history.push('/student/view-result');
-    } else {
-      console.log('no')
     }
   }
 

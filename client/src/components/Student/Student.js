@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { saveToDB, saveScores } from '../../actions';
+import { 
+  saveToDB, 
+  saveScores, 
+  clearSelectedSubjects, 
+  clearQuestions, 
+  clearOptions 
+} from '../../actions';
 
 import './Student.css'
 
@@ -11,6 +17,10 @@ import StudentNavbar from './StudentNavbar';
 import WriteExam from './WriteExam';
 import MyExams from './MyExams';
 import ViewResult from './ViewResult';
+import First from './First';
+import Second from './Second';
+import Third from './Third';
+import Four from './Four';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -45,33 +55,14 @@ class Dashboard extends Component {
     const second = answers.filter(question => question.subject_id === ids[1]);
     const third = answers.filter(question => question.subject_id === ids[2]);
     const fourth = answers.filter(question => question.subject_id === ids[3]);
-
-    //console.log(third);
-    let score1, score2, score3, score4;
-
-    if(first.length <= 0) {
-      score1 = 75;
-    } else {
-      score1 = first.map(item => item.mark).reduce((x, y) => x + y);
-    }
-    if(second.length <= 0) {
-      score2 = 75;
-    } else {
-      score2 = second.map(item => item.mark).reduce((x, y) => x + y);
-    }
-    if(third.length <= 0) {
-      score3 = 75;
-    } else {
-      score3 = third.map(item => item.mark).reduce((x, y) => x + y);
-    }
-    if(fourth.length <= 0) {
-      score4 = 75;
-    } else {
-      score4 = fourth.map(item => item.mark).reduce((x, y) => x + y);
-    }
-
+    // calculate final answers for each subject
+    const score1 = (first.length <= 0) ? 0 : first.map(item => item.mark).reduce((x, y) => x + y);
+    const score2 = (second.length <= 0) ? 0 : second.map(item => item.mark).reduce((x, y) => x + y);
+    const score3 = (third.length <= 0) ? 0 : third.map(item => item.mark).reduce((x, y) => x + y);
+    const score4 = (fourth.length <= 0) ? 0 : fourth.map(item => item.mark).reduce((x, y) => x + y);
+    // store final answers
     const allScores = [score1, score2, score3, score4]
-    const total = allScores.reduce((x, y) => x + y);
+    const total = allScores.reduce((x, y) => x + y); // total mark
     const examScores = selected.map((data, i) => {
       return { id: data.id, name: data.name, score: allScores[i] };
     })
@@ -86,8 +77,16 @@ class Dashboard extends Component {
       total
     }
 
+    // clean localStorage for selectted values
+    answers.forEach(element => {
+      localStorage.removeItem(`q_${element.id}`);
+    });
+
     this.props.saveToDB(obj);
     this.props.saveScores(examScores);
+    this.props.clearQuestions();
+    this.props.clearSelectedSubjects();
+    this.props.clearOptions();
   
     localStorage.setItem("startExam", "false");
     this.setState({ 
@@ -106,7 +105,11 @@ class Dashboard extends Component {
             <Switch>
               <Route exact path={`${match.path}`} component={() => <MainDasboard start={this.start}/>} />
               <Route exact path={`${match.path}/my-exams`} component={MyExams} />
-              <Route exact path={`${match.path}/write-exam/:subjectId`} component={WriteExam} />
+              <Route exact path={`${match.path}/write-exam`} component={WriteExam} />
+              <Route exact path={`${match.path}/first/:subjectId`} component={First} />
+              <Route exact path={`${match.path}/second/:subjectId`} component={Second} />
+              <Route exact path={`${match.path}/third/:subjectId`} component={Third} />
+              <Route exact path={`${match.path}/fourth/:subjectId`} component={Four} />
               <Route exact path={`${match.path}/view-result`} component={ViewResult} />
             </Switch>
           </section>
@@ -121,4 +124,7 @@ const mapStateToProps = state => ({
   answers: state.exam
 });
 
-export default connect(mapStateToProps, { saveToDB, saveScores })(Dashboard);
+export default connect(
+  mapStateToProps, 
+  { saveToDB, saveScores, clearSelectedSubjects, clearQuestions, clearOptions }
+)(Dashboard);

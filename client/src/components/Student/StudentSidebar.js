@@ -20,7 +20,11 @@ class StudentSidebar extends Component {
         </header>
         {startExam === "true" ? (
           <ul className="sidebar-list">
-            {selected.map(subject => <li key={subject.id}><Link to={`${path}/write-exam/${subject.id}`}>{subject.name}</Link></li>)}
+            {/* {selected.map(subject => <li key={subject.id}><Link to={`${path}/write-exam/${subject.id}`}>{subject.name}</Link></li>)} */}
+            <li key={selected[0].id}><Link to={`${path}/first/${selected[0].id}`}>{selected[0].name}</Link></li>
+            <li key={selected[1].id}><Link to={`${path}/second/${selected[1].id}`}>{selected[1].name}</Link></li>
+            <li key={selected[2].id}><Link to={`${path}/third/${selected[2].id}`}>{selected[2].name}</Link></li>
+            <li key={selected[3].id}><Link to={`${path}/fourth/${selected[3].id}`}>{selected[3].name}</Link></li>
           </ul>
         ) : (
           <ul className="sidebar-list">
